@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen  flex items-center justify-center section-padding">
       <div className="container mx-auto">
@@ -15,9 +18,8 @@ export default function Hero() {
           >
             <h1 className="text-[rgb(var(--primary))] font-semibold text-4xl">안녕하세요 👋</h1>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[rgb(var(--foreground))]">
-              저는 <span className="gradient-text">웹 개발자</span>
-              <br />
-              입니다
+              {t('iAm')} <span className="gradient-text">{t('webDeveloper')}</span>
+              {t('iAmSuffix') && <><br />{t('iAmSuffix')}</>}
             </h1>
           </motion.div>
 
@@ -27,7 +29,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto"
           >
-            사용자 경험을 최우선으로 생각하며, 혁신적이고 아름다운 웹 서비스를 만듭니다
+            {t('heroDescription')}
           </motion.p>
 
           {/* CTA 버튼 */}
@@ -41,13 +43,13 @@ export default function Hero() {
               href="#projects"
               className="px-8 py-4 bg-[rgb(var(--primary))] text-white rounded-xl font-semibold hover:bg-[rgb(var(--secondary))] transition-all shadow-lg hover:shadow-xl hover:scale-105"
             >
-              프로젝트 보기
+              {t('viewProjects')}
             </a>
             <a
               href="#contact"
               className="px-8 py-4 border-2 border-[rgb(var(--primary))] text-[rgb(var(--primary))] rounded-xl font-semibold hover:bg-[rgb(var(--primary))] hover:text-white transition-all"
             >
-              연락하기
+              {t('contactMe')}
             </a>
           </motion.div>
 

@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,7 +18,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    alert("메시지가 전송되었습니다!");
+    alert(t('messageSent'));
     setFormData({ name: "", email: "", message: "" });
   };
 
@@ -67,7 +69,7 @@ export default function Contact() {
           className="mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[rgb(var(--foreground))]">
-            Get In Touch
+            {t('getInTouch')}
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))]"></div>
         </motion.div>
@@ -81,16 +83,15 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold mb-4 text-[rgb(var(--foreground))]">Let's Work Together</h3>
+              <h3 className="text-2xl font-bold mb-4 text-[rgb(var(--foreground))]">{t('letsWork')}</h3>
               <p className="text-lg text-gray-600 leading-relaxed">
-                새로운 프로젝트나 협업 기회에 대해 이야기 나누고 싶으시다면 
-                언제든 연락주세요. 함께 멋진 것을 만들어봅시다!
+                {t('contactDescription')}
               </p>
             </div>
 
             {/* 소셜 링크 */}
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-[rgb(var(--foreground))]">Connect With Me</h4>
+              <h4 className="text-lg font-semibold mb-4 text-[rgb(var(--foreground))]">{t('connectWith')}</h4>
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
                   <a
@@ -117,7 +118,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2 text-gray-700">
-                  Name
+                  {t('name')}
                 </label>
                 <input
                   type="text"
@@ -127,13 +128,13 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-[rgb(var(--border))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all bg-white"
-                  placeholder="Your name"
+                  placeholder={t('yourName')}
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700">
-                  Email
+                  {t('email')}
                 </label>
                 <input
                   type="email"
@@ -143,13 +144,13 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 border border-[rgb(var(--border))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all bg-white"
-                  placeholder="your.email@example.com"
+                  placeholder={t('yourEmail')}
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2 text-gray-700">
-                  Message
+                  {t('message')}
                 </label>
                 <textarea
                   id="message"
@@ -159,7 +160,7 @@ export default function Contact() {
                   required
                   rows={5}
                   className="w-full px-4 py-3 border border-[rgb(var(--border))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all resize-none bg-white"
-                  placeholder="Your message..."
+                  placeholder={t('yourMessage')}
                 />
               </div>
 
@@ -167,7 +168,7 @@ export default function Contact() {
                 type="submit"
                 className="w-full px-8 py-4 bg-[rgb(var(--primary))] text-white rounded-lg font-semibold hover:bg-[rgb(var(--secondary))] transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
               >
-                Send Message
+                {t('sendMessage')}
               </button>
             </form>
           </motion.div>

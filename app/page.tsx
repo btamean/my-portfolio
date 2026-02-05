@@ -8,11 +8,13 @@ import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Navigation from "@/components/Navigation";
 import { useFullPageScroll } from "@/hooks/useFullPageScroll";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const sections = ['home', 'about', 'skills', 'projects', 'contact'];
 
 export default function Home() {
   const { currentSection, scrollToSection } = useFullPageScroll(sections);
+  const { t } = useLanguage();
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
@@ -64,7 +66,7 @@ export default function Home() {
       <footer className="border-t border-[rgb(var(--border))] py-8 bg-[rgb(var(--muted))]">
         <div className="container mx-auto px-6 text-center">
           <p className="text-sm text-gray-600">
-            © {new Date().getFullYear()} Your Name. Built with Next.js & Tailwind CSS
+            © {new Date().getFullYear()} Your Name. {t('builtWith')}
           </p>
         </div>
       </footer>

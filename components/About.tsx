@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     /* 핵심: items-center를 제거하고 상단 패딩(pt-32)을 명시적으로 줍니다. 
@@ -23,7 +25,7 @@ export default function About() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[rgb(var(--foreground))]">
-            About Me
+            {t('aboutMe')}
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))] mb-12"></div>
         </motion.div>
@@ -52,24 +54,20 @@ export default function About() {
             className="mb-12"
           >
             <p className="text-lg text-gray-700 leading-relaxed">
-              안녕하세요! 사용자 중심의 웹 경험을 만드는 것에 열정을 가진 
-              풀스택 웹 개발자입니다.
+              {t('aboutDescription1')}
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              최신 웹 기술을 활용하여 성능과 사용성을 모두 갖춘 
-              현대적인 웹 애플리케이션을 개발합니다. 클린 코드와 
-              우아한 솔루션을 추구하며, 지속적인 학습과 성장을 
-              중요하게 생각합니다.
+              {t('aboutDescription2')}
             </p>
             
             <div className="grid grid-cols-2 gap-4 pt-6">
               <div className="card p-6 text-center bg-white/50 backdrop-blur-sm">
                 <h3 className="text-3xl font-bold text-[rgb(var(--primary))] mb-2">3+</h3>
-                <p className="text-sm text-gray-600">Years Experience</p>
+                <p className="text-sm text-gray-600">{t('yearsExperience')}</p>
               </div>
               <div className="card p-6 text-center bg-white/50 backdrop-blur-sm">
                 <h3 className="text-3xl font-bold text-[rgb(var(--secondary))] mb-2">20+</h3>
-                <p className="text-sm text-gray-600">Projects Completed</p>
+                <p className="text-sm text-gray-600">{t('projectsCompleted')}</p>
               </div>
             </div>
           </motion.div>

@@ -17,6 +17,17 @@
     --font-geist-sans: 'Inter', sans-serif;
     --font-geist-mono: 'JetBrains Mono', monospace;
   }
+
+  /* 이 위치에 다크모드 추가 */
+  .dark {
+    --background: 15 23 42;
+    --foreground: 241 245 249;
+    --primary: 139 92 246;
+    --secondary: 168 85 247;
+    --accent: 96 165 250;
+    --muted: 30 41 59;
+    --border: 51 65 85;
+  }
   * {
     @apply border-border;
   }
@@ -115,13 +126,13 @@
   }
 
   /* Chrome, Safari, Edge, Opera에서 스크롤바 숨기기 */
-*::-webkit-scrollbar {
-  display: none;
-}
+  *::-webkit-scrollbar {
+    display: none;
+  }
 
-/* Firefox에서 스크롤바 숨기기 */
-* {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
-}
+  /* Firefox에서 스크롤바 숨기기 */
+  * {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
 }
