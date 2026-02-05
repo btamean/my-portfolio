@@ -130,17 +130,18 @@ export default function Skills() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div className="h-screen flex items-center justify-center section-padding" ref={ref}>
+    <div className="min-h-screen w-full pt-32 pb-20 px-6" ref={ref}>
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
+          className="mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[rgb(var(--foreground))]">
             Skills
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))] mb-12"></div>
+          <div className="w-20 h-1 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))]"></div>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">

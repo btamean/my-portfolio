@@ -44,66 +44,77 @@ export default function Projects() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div className="h-screen flex items-center justify-center section-padding bg-[rgb(var(--muted))]" ref={ref}>
+    <div 
+      className="min-h-screen w-full pt-32 pb-20 px-6" 
+      ref={ref}
+    >
       <div className="container mx-auto max-w-6xl">
+        
+        {/* 제목 - 고정 */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
+          className="mb-12 flex-shrink-0"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[rgb(var(--foreground))]">
             Projects
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))] mb-8"></div>
+          <div className="w-20 h-1 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))]"></div>
         </motion.div>
 
-        {/* 리스트 컨테이너: grid-cols-1로 설정 */}
-        <div className="flex flex-col gap-4">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="group flex flex-col sm:flex-row items-center gap-6 p-4 bg-white/50 backdrop-blur-sm rounded-2xl border border-[rgb(var(--border))] hover:shadow-md transition-all hover:bg-white"
-            >
-              {/* 왼쪽: 작은 아이콘/이미지 영역 (고정 사이즈) */}
-              <div className="w-24 h-24 sm:w-32 sm:h-32 flex-shrink-0 bg-gradient-to-br from-[rgb(var(--primary))]/10 to-[rgb(var(--accent))]/10 rounded-xl flex items-center justify-center text-4xl group-hover:scale-105 transition-transform">
-                {project.image}
-              </div>
+        {/* 스크롤 가능한 프로젝트 리스트 */}
+        <div 
+          className="overflow-y-auto pr-2 bg-[rgb(var(--muted))] rounded-2xl p-6 custom-scrollbar"
+          style={{ maxHeight: 'calc(100vh - 20rem)' }}
+          onWheel={(e) => {
+            e.stopPropagation();
+          }}
+        >          
+          <div className="flex flex-col gap-6">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="group flex flex-col sm:flex-row items-start sm:items-center gap-6 p-6 bg-white/50 backdrop-blur-sm rounded-2xl border border-[rgb(var(--border))] hover:shadow-lg transition-all hover:bg-white"
+              >
+                {/* 이미지 */}
+                <div className="w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 bg-gradient-to-br from-[rgb(var(--primary))]/10 to-[rgb(var(--accent))]/10 rounded-xl flex items-center justify-center text-4xl group-hover:scale-105 transition-transform">
+                  {project.image}
+                </div>
 
-              {/* 오른쪽: 상세 정보 영역 */}
-              <div className="flex-grow w-full">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <h3 className="text-xl font-bold text-[rgb(var(--foreground))] group-hover:text-[rgb(var(--primary))] transition-colors">
-                    {project.title}
-                  </h3>
-                  
-                  {/* 링크 버튼을 제목 옆으로 배치 */}
-                  <div className="flex gap-3">
-                    <a href={project.link} className="text-sm font-medium text-[rgb(var(--primary))] hover:underline">Live</a>
-                    <a href={project.github} className="text-sm font-medium text-gray-500 hover:text-black">Code</a>
+                {/* 내용 */}
+                <div className="flex-grow w-full">
+                  <div className="flex flex-row items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold text-[rgb(var(--foreground))] group-hover:text-[rgb(var(--primary))] transition-colors">
+                      {project.title}
+                    </h3>
+                    <div className="flex gap-3">
+                      <a href={project.link} className="text-xs font-bold text-[rgb(var(--primary))] uppercase tracking-wider hover:underline">Live</a>
+                      <a href={project.github} className="text-xs font-bold text-gray-400 uppercase tracking-wider hover:text-black transition-colors">Code</a>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 text-[11px] font-medium bg-[rgb(var(--muted))] text-[rgb(var(--primary))] rounded-md border border-[rgb(var(--border))]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-
-                <p className="text-gray-600 mb-3 text-sm line-clamp-2">
-                  {project.description}
-                </p>
-
-                {/* 기술 태그 */}
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 text-[10px] font-semibold bg-white text-[rgb(var(--primary))] rounded-md border border-[rgb(var(--border))]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

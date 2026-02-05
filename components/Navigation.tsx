@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-export default function Navigation() {
+interface NavigationProps {
+  scrollToSection: (index: number) => void;
+  currentSection: number;
+}
+
+export default function Navigation({ scrollToSection, currentSection }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -15,11 +20,11 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", id: "home" },
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Projects", id: "projects" },
+    { name: "Contact", id: "contact" },
   ];
 
   return (
@@ -27,15 +32,20 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-[rgb(var(--border))]" : "bg-transparent"
+        scrolled || currentSection > 0 // 첫 섹션이 아닐 때도 배경색이 보이면 더 좋습니다
+          ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-[rgb(var(--border))]" 
+          : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* 로고 */}
-          <a href="#home" className="text-xl font-bold text-[rgb(var(--foreground))]">
+          {/* 로고 클릭 시 홈(0번)으로 이동 */}
+          <button 
+            onClick={() => scrollToSection(0)} 
+            className="text-xl font-bold text-[rgb(var(--foreground))]"
+          >
             YourName
-          </a>
+          </button>
 
           {/* 네비게이션 메뉴 */}
           <ul className="hidden md:flex space-x-8">
@@ -46,24 +56,24 @@ export default function Navigation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <a
-                  href={item.href}
-                  className="text-sm font-medium text-gray-600 hover:text-[rgb(var(--primary))] transition-colors relative group"
+                {/* 2. <a> 태그 대신 <button>을 사용하고 scrollToSection을 연결합니다. */}
+                <button
+                  onClick={() => scrollToSection(index)}
+                  className={`text-sm font-medium transition-colors relative group ${
+                    currentSection === index 
+                      ? "text-[rgb(var(--primary))]" 
+                      : "text-gray-600 hover:text-[rgb(var(--primary))]"
+                  }`}
                 >
                   {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[rgb(var(--primary))] transition-all group-hover:w-full"></span>
-                </a>
+                  {/* 현재 섹션일 때 밑줄 표시 */}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-[rgb(var(--primary))] transition-all ${
+                    currentSection === index ? "w-full" : "w-0 group-hover:w-full"
+                  }`}></span>
+                </button>
               </motion.li>
             ))}
           </ul>
-
-          {/* CTA 버튼 */}
-          <a
-            href="#contact"
-            className="hidden md:block px-6 py-2 bg-[rgb(var(--primary))] text-white rounded-lg text-sm font-medium hover:bg-[rgb(var(--secondary))] transition-colors"
-          >
-            Contact
-          </a>
 
           {/* 모바일 메뉴 버튼 */}
           <button className="md:hidden">

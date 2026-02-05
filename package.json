@@ -12,7 +12,8 @@
     "framer-motion": "^11.18.2",
     "next": "14.2.18",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-scrollbar-hide": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -33,7 +34,13 @@
       "at-rule-no-unknown": [
         true,
         {
-          "ignoreAtRules": ["tailwind", "layer", "apply", "responsive", "variants"]
+          "ignoreAtRules": [
+            "tailwind",
+            "layer",
+            "apply",
+            "responsive",
+            "variants"
+          ]
         }
       ]
     }

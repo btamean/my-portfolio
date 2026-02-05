@@ -17,15 +17,20 @@
     --font-geist-sans: 'Inter', sans-serif;
     --font-geist-mono: 'JetBrains Mono', monospace;
   }
-
   * {
     @apply border-border;
   }
   
   body {
-    @apply bg-[rgb(var(--background))] text-[rgb(var(--foreground))];
-    font-feature-settings: "rlig" 1, "calt" 1;
+  @apply bg-[rgb(var(--background))] text-[rgb(var(--foreground))];
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;  /* Firefox */
   }
+
+  body::-webkit-scrollbar {
+    display: none;  /* Chrome/Safari */
+  }  
 
   /* 커스텀 스크롤바 */
   ::-webkit-scrollbar {
@@ -72,4 +77,51 @@
   .animation-delay-600 {
     animation-delay: 600ms;
   }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thumb-\[rgb\(var\(--primary\)\)\]::-webkit-scrollbar-thumb {
+    background: rgb(var(--primary));
+    border-radius: 3px;
+  }
+  
+  .scrollbar-track-gray-200::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 3px;
+  }
+
+  .custom-scrollbar {
+    overflow-y: auto;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgb(var(--primary));
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--secondary));
+  }
+
+  /* Chrome, Safari, Edge, Opera에서 스크롤바 숨기기 */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox에서 스크롤바 숨기기 */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
 }

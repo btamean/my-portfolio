@@ -12,11 +12,14 @@ import { useFullPageScroll } from "@/hooks/useFullPageScroll";
 const sections = ['home', 'about', 'skills', 'projects', 'contact'];
 
 export default function Home() {
-  const { currentSection } = useFullPageScroll(sections);
+  const { currentSection, scrollToSection } = useFullPageScroll(sections);
 
   return (
     <main className="relative min-h-screen overflow-x-hidden">
-      <Navigation />
+      <Navigation 
+        scrollToSection={scrollToSection} 
+        currentSection={currentSection} 
+      />
       
       <div className="relative">
         <section id="home" className="min-h-screen">
@@ -46,14 +49,13 @@ export default function Home() {
           <button
             key={section}
             onClick={() => {
-              document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+              scrollToSection(index);
             }}
             className={`w-3 h-3 rounded-full transition-all ${
               currentSection === index 
                 ? 'bg-[rgb(var(--primary))] w-8' 
                 : 'bg-gray-300 hover:bg-gray-400'
             }`}
-            aria-label={`Go to ${section}`}
           />
         ))}
       </div>

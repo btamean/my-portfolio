@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
-    <div className="h-screen flex items-center justify-center section-padding">
+    <div className="min-h-screen  flex items-center justify-center section-padding">
       <div className="container mx-auto">
         <div className="max-w-4xl mx-auto text-center">
           {/* 애니메이션 텍스트 */}
@@ -13,7 +13,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-[rgb(var(--primary))] font-semibold mb-4">안녕하세요 👋</p>
+            <h1 className="text-[rgb(var(--primary))] font-semibold text-4xl">안녕하세요 👋</h1>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[rgb(var(--foreground))]">
               저는 <span className="gradient-text">웹 개발자</span>
               <br />
