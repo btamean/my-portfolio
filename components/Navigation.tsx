@@ -27,14 +27,14 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass-morphism shadow-lg" : ""
+        scrolled ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-[rgb(var(--border))]" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* 로고 */}
-          <a href="#home" className="text-2xl font-bold gradient-text">
-            &lt;YourName /&gt;
+          <a href="#home" className="text-xl font-bold text-[rgb(var(--foreground))]">
+            YourName
           </a>
 
           {/* 네비게이션 메뉴 */}
@@ -48,7 +48,7 @@ export default function Navigation() {
               >
                 <a
                   href={item.href}
-                  className="text-sm font-medium hover:text-[rgb(var(--primary))] transition-colors relative group"
+                  className="text-sm font-medium text-gray-600 hover:text-[rgb(var(--primary))] transition-colors relative group"
                 >
                   {item.name}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[rgb(var(--primary))] transition-all group-hover:w-full"></span>
@@ -56,6 +56,14 @@ export default function Navigation() {
               </motion.li>
             ))}
           </ul>
+
+          {/* CTA 버튼 */}
+          <a
+            href="#contact"
+            className="hidden md:block px-6 py-2 bg-[rgb(var(--primary))] text-white rounded-lg text-sm font-medium hover:bg-[rgb(var(--secondary))] transition-colors"
+          >
+            Contact
+          </a>
 
           {/* 모바일 메뉴 버튼 */}
           <button className="md:hidden">

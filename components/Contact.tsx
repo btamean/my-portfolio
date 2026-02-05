@@ -15,7 +15,6 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // 실제 폼 제출 로직 구현
     console.log("Form submitted:", formData);
     alert("메시지가 전송되었습니다!");
     setFormData({ name: "", email: "", message: "" });
@@ -59,16 +58,17 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="section-padding bg-white/5" ref={ref}>
+    <div className="h-screen flex items-center justify-center section-padding" ref={ref}>
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-12 gradient-text">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[rgb(var(--foreground))]">
             Get In Touch
           </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))] mb-12"></div>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -80,8 +80,8 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold mb-4">Let's Work Together</h3>
-              <p className="text-lg text-white/70 leading-relaxed">
+              <h3 className="text-2xl font-bold mb-4 text-[rgb(var(--foreground))]">Let's Work Together</h3>
+              <p className="text-lg text-gray-600 leading-relaxed">
                 새로운 프로젝트나 협업 기회에 대해 이야기 나누고 싶으시다면 
                 언제든 연락주세요. 함께 멋진 것을 만들어봅시다!
               </p>
@@ -89,7 +89,7 @@ export default function Contact() {
 
             {/* 소셜 링크 */}
             <div>
-              <h4 className="text-lg font-semibold mb-4">Connect With Me</h4>
+              <h4 className="text-lg font-semibold mb-4 text-[rgb(var(--foreground))]">Connect With Me</h4>
               <div className="flex gap-4">
                 {socialLinks.map((social) => (
                   <a
@@ -97,7 +97,7 @@ export default function Contact() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 glass-morphism rounded-full flex items-center justify-center hover:bg-[rgb(var(--primary))]/20 transition-all hover:scale-110"
+                    className="w-12 h-12 card rounded-full flex items-center justify-center text-gray-600 hover:text-[rgb(var(--primary))] hover:bg-[rgb(var(--muted))] transition-all hover:scale-110"
                     aria-label={social.name}
                   >
                     {social.icon}
@@ -115,7 +115,7 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                <label htmlFor="name" className="block text-sm font-medium mb-2 text-gray-700">
                   Name
                 </label>
                 <input
@@ -125,13 +125,13 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 glass-morphism rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all"
+                  className="w-full px-4 py-3 border border-[rgb(var(--border))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all bg-white"
                   placeholder="Your name"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700">
                   Email
                 </label>
                 <input
@@ -141,13 +141,13 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 glass-morphism rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all"
+                  className="w-full px-4 py-3 border border-[rgb(var(--border))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all bg-white"
                   placeholder="your.email@example.com"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
+                <label htmlFor="message" className="block text-sm font-medium mb-2 text-gray-700">
                   Message
                 </label>
                 <textarea
@@ -157,14 +157,14 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3 glass-morphism rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all resize-none"
+                  className="w-full px-4 py-3 border border-[rgb(var(--border))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))] transition-all resize-none bg-white"
                   placeholder="Your message..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full px-8 py-4 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--accent))] rounded-lg font-semibold hover:scale-[1.02] transition-transform shadow-lg hover:shadow-[rgb(var(--primary))]/50"
+                className="w-full px-8 py-4 bg-[rgb(var(--primary))] text-white rounded-lg font-semibold hover:bg-[rgb(var(--secondary))] transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
               >
                 Send Message
               </button>
@@ -172,6 +172,6 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

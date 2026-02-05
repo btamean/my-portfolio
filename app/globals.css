@@ -4,21 +4,18 @@
 
 @layer base {
   :root {
-    /* 독창적인 컬러 팔레트 - 네온 사이버펑크 */
-    --background: 10 10 15;
-    --foreground: 250 250 255;
-    --primary: 255 20 147;
-    --secondary: 0 255 255;
-    --accent: 138 43 226;
+    /* 깔끔하고 모던한 컬러 팔레트 */
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+    --primary: 99 102 241;        /* 인디고 */
+    --secondary: 168 85 247;      /* 퍼플 */
+    --accent: 59 130 246;         /* 블루 */
+    --muted: 241 245 249;         /* 연한 회색 */
+    --border: 226 232 240;
     
     /* 타이포그래피 */
     --font-geist-sans: 'Inter', sans-serif;
     --font-geist-mono: 'JetBrains Mono', monospace;
-  }
-
-  .dark {
-    --background: 10 10 15;
-    --foreground: 250 250 255;
   }
 
   * {
@@ -32,16 +29,16 @@
 
   /* 커스텀 스크롤바 */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(var(--background), 0.5);
+    background: rgb(var(--muted));
   }
 
   ::-webkit-scrollbar-thumb {
     background: rgb(var(--primary));
-    border-radius: 5px;
+    border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -51,22 +48,15 @@
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-r from-[rgb(var(--primary))] via-[rgb(var(--accent))] to-[rgb(var(--secondary))] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--secondary))] bg-clip-text text-transparent;
   }
 
-  .glass-morphism {
-    @apply backdrop-blur-md bg-white/10 border border-white/20;
-  }
-
-  .neon-glow {
-    text-shadow: 
-      0 0 10px rgb(var(--primary)),
-      0 0 20px rgb(var(--primary)),
-      0 0 30px rgb(var(--primary));
+  .card {
+    @apply bg-white border border-[rgb(var(--border))] rounded-2xl shadow-sm hover:shadow-md transition-all;
   }
 
   .section-padding {
-    @apply px-6 py-20 md:px-12 lg:px-24;
+    @apply px-6 py-16 md:px-12 md:py-24 lg:px-24;
   }
 }
 
