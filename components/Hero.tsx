@@ -1,78 +1,104 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
   const { t } = useLanguage();
+  const [displayText, setDisplayText] = useState("");
+  const [phase, setPhase] = useState("typing"); 
+  const fullText = t('greeting');
+
+  useEffect(() => {
+    let i = 0;
+    setDisplayText("");
+    setPhase("typing");
+
+    const timer = setInterval(() => {
+      setDisplayText(fullText.substring(0, i + 1));
+      i++;
+
+      if (i >= fullText.length) {
+        clearInterval(timer);
+        setTimeout(() => setPhase("content"), 500);
+      }
+    }, 120);
+
+    return () => clearInterval(timer);
+  }, [fullText]);
 
   return (
-    <div className="min-h-screen  flex items-center justify-center section-padding">
-      <div className="container mx-auto">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* 애니메이션 텍스트 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <h1 className="text-[rgb(var(--primary))] font-semibold text-4xl">안녕하세요 👋</h1>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[rgb(var(--foreground))]">
-              {t('iAm')} <span className="gradient-text">{t('webDeveloper')}</span>
-              {t('iAmSuffix') && <><br />{t('iAmSuffix')}</>}
-            </h1>
-          </motion.div>
+    <div className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
+      {/* 커서 깜빡임을 위한 스타일 주입 */}
+      <style jsx>{`
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .cursor-blink {
+          animation: blink 0.8s step-end infinite;
+        }
+      `}</style>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto"
-          >
-            {t('heroDescription')}
-          </motion.p>
+      <div className="container mx-auto max-w-4xl flex flex-col items-center">
+        
+        {/* [Step 1] 인사말 */}
+        <motion.div
+          animate={{ y: phase === "typing" ? 0 : -20 }} // 이동 거리도 줄여서 자연스럽게
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="mb-2" 
+        >
+          <h2 className="text-[rgb(var(--primary))] font-bold text-xl md:text-2xl flex items-center justify-center min-h-[40px]">
+            {displayText}
+            {phase === "typing" && (
+              <span className="cursor-blink inline-block w-[2px] h-[0.9em] bg-[rgb(var(--primary))] ml-1 shadow-[0_0_8px_rgb(var(--primary))]" />
+            )}
+          </h2>
+        </motion.div>
 
-          {/* CTA 버튼 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <a
-              href="#projects"
-              className="px-8 py-4 bg-[rgb(var(--primary))] text-white rounded-xl font-semibold hover:bg-[rgb(var(--secondary))] transition-all shadow-lg hover:shadow-xl hover:scale-105"
+        {/* [Step 2] 나머지 콘텐츠 */}
+        <AnimatePresence>
+          {phase === "content" && (
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+              className="flex flex-col items-center text-center"
             >
-              {t('viewProjects')}
-            </a>
-            <a
-              href="#contact"
-              className="px-8 py-4 border-2 border-[rgb(var(--primary))] text-[rgb(var(--primary))] rounded-xl font-semibold hover:bg-[rgb(var(--primary))] hover:text-white transition-all"
-            >
-              {t('contactMe')}
-            </a>
-          </motion.div>
+              <motion.p variants={itemFadeUp} className="text-lg md:text-xl font-medium text-gray-500 dark:text-gray-400 mb-4">
+                {t('iAm')}
+              </motion.p>
 
-          {/* 스크롤 인디케이터 */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="mt-20"
-          >
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-gray-400 mb-2">Scroll Down</span>
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="w-6 h-10 border-2 border-gray-300 rounded-full flex items-start justify-center p-2"
-              >
-                <motion.div className="w-1.5 h-1.5 bg-[rgb(var(--primary))] rounded-full" />
+              <motion.h1 variants={itemFadeUp} className="text-5xl md:text-7xl font-black text-[rgb(var(--foreground))] tracking-tight leading-[1.1] mb-6">                
+                <span className="gradient-text">{t('webDeveloper')}</span>
+              </motion.h1>
+
+              <motion.p variants={itemFadeUp} className="text-base md:text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-[500px] leading-relaxed">                
+                {t('heroDescription')}
+              </motion.p>
+
+              <motion.div variants={itemFadeUp} className="flex flex-col sm:flex-row gap-4">
+                <a href="#projects" className="px-7 py-3.5 bg-[rgb(var(--primary))] text-white rounded-xl font-bold shadow-md hover:scale-105 transition-all text-sm">
+                  {t('viewProjects')}
+                </a>
+                <a href="#contact" className="px-7 py-3.5 border-2 border-[rgb(var(--primary))] text-[rgb(var(--primary))] rounded-xl font-bold hover:bg-[rgb(var(--primary))] hover:text-white transition-all text-sm">
+                  {t('contactMe')}
+                </a>
               </motion.div>
-            </div>
-          </motion.div>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
 }
+
+const itemFadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: "easeOut" } 
+  },
+};

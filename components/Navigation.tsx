@@ -36,7 +36,7 @@ export default function Navigation({ scrollToSection, currentSection }: Navigati
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled || currentSection > 0 // 첫 섹션이 아닐 때도 배경색이 보이면 더 좋습니다
-          ? "bg-white/80 backdrop-blur-md shadow-sm border-b border-[rgb(var(--border))]" 
+        ? "bg-white/90 dark:bg-slate-900/95 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-700" 
           : "bg-transparent"
       }`}
     >
@@ -45,7 +45,7 @@ export default function Navigation({ scrollToSection, currentSection }: Navigati
           {/* 로고 클릭 시 홈(0번)으로 이동 */}
           <button 
             onClick={() => scrollToSection(0)} 
-            className="text-xl font-bold text-[rgb(var(--foreground))]"
+            className="text-xl font-bold text-gray-900 dark:text-white transition-colors"
           >
             YourName
           </button>
@@ -64,8 +64,8 @@ export default function Navigation({ scrollToSection, currentSection }: Navigati
                   onClick={() => scrollToSection(index)}
                   className={`text-sm font-medium transition-colors relative group ${
                     currentSection === index 
-                      ? "text-[rgb(var(--primary))]" 
-                      : "text-gray-600 hover:text-[rgb(var(--primary))]"
+                      ? "text-[rgb(var(--primary))] dark:text-[rgb(var(--accent))]" 
+                      : "text-gray-700 dark:text-gray-300 hover:text-[rgb(var(--primary))] dark:hover:text-[rgb(var(--accent))]"
                   }`}
                 >
                   {item.name}
@@ -83,7 +83,7 @@ export default function Navigation({ scrollToSection, currentSection }: Navigati
               {/* 다크모드 토글 */}
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-gray-200"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
@@ -100,7 +100,7 @@ export default function Navigation({ scrollToSection, currentSection }: Navigati
               {/* 언어 토글 */}
               <button
                 onClick={() => setLanguage(language === 'ko' ? 'en' : 'ko')}
-                className="px-3 py-1.5 text-sm font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="px-3 py-1.5 text-sm font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-gray-200"
               >
                 {language === 'ko' ? 'EN' : 'KO'}
               </button>

@@ -20,11 +20,11 @@ const translations = {
     contact: "Contact",
     
     // Hero
-    greeting: "안녕하세요 👋",
-    iAm: "저는",
-    webDeveloper: "웹 개발자",
-    iAmSuffix: "입니다",
-    heroDescription: "사용자 경험을 최우선으로 생각하며, 혁신적이고 아름다운 웹 서비스를 만듭니다",
+    greeting: "안녕하세요.",
+    iAm: "기술과 디자인의 조화를 추구하는",
+    webDeveloper: "풀스택 웹 개발자",
+    iAmSuffix: "허대범 입니다",
+    heroDescription: "탄탄한 서버 설계부터 감각적인 UI 구현까지, 서비스의 전 과정을 아우르는 개발자입니다.",
     viewProjects: "프로젝트 보기",
     contactMe: "연락하기",
     scrollDown: "Scroll Down",
